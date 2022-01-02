@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/radar.css">
+        <script src="javascript/radar.js"></script>
+    </head>
+    <body>
+        <div id="radar" style="height: 100vh; width: 100vw;"></div>
+        <script>
+
+            // Get the data to load in
+            let radar;
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+
+                let data = JSON.parse(this.responseText);
+                let container = document.getElementById("radar");
+
+                radar = Radar.build(data, container);
+            }
+
+            xhttp.open("GET", "api/data.json", true);
+            xhttp.send();
+        </script>
+    </body>
+</html>

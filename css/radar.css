@@ -1,0 +1,117 @@
+.radar {
+    --size: min(100vh, 100vw);
+    position: relative;
+    background: #c5c5c5;
+    overflow: hidden;
+    border-radius: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    width: var(--size);
+    height: var(--size);
+}
+
+.radar_segment {
+    height: 100%;
+    content: '';
+    background: var(--bg);
+    position: absolute;
+    overflow: hidden;
+    transform: translate(0, -50%) rotate(90deg) rotate(calc(var(--offset, 0) * 1deg));
+    transform-origin: 50% 100%;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.radar_zone {
+    height: var(--value);
+    border-radius: 100%;
+    background: var(--bg);
+    content: '';
+    overflow: hidden;
+    position: fixed;
+    border-style: dashed;
+    border-color: black;
+    border-width: 1px;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--value);
+    text-align:center;
+}
+
+.radar_zone:hover {
+    background: #000;
+    opacity: 15%;
+}
+
+.radar_zone:first-child {
+    border: none;
+}
+
+.radar_zone p {
+    transform: rotate(90deg);
+}
+
+.radar_point {
+
+    --angle: 45;
+    --depth: 25;
+
+    --radian: calc(var(--angle) * 0.01745329251);
+
+    /*
+        Following is to calculate cos of the angle above.
+    */
+    --cos-term1: 1;
+    --cos-term2: calc((var(--radian) * var(--radian)) / 2);
+    --cos-term3: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 24);
+    --cos-term4: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 720);
+    --cos-term5: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 40320);
+    --cos: calc(var(--cos-term1) - var(--cos-term2) + var(--cos-term3) - var(--cos-term4) + var(--cos-term5));
+
+    /*
+        Follow is to calculate cos which is use in determining the
+        x position of the point relative to the top right or the box.
+        +ve means close to the start of the sector
+    */
+    --sin-term1: var(--radian);
+    --sin-term2: calc((var(--radian) * var(--radian) * var(--radian)) / 6);
+    --sin-term3: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 120);
+    --sin-term4: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 5040);
+    --sin-term5: calc((var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian) * var(--radian)) / 362880);
+    --sin: calc(var(--sin-term1) - var(--sin-term2) + var(--sin-term3) - var(--sin-term4) + var(--sin-term5));
+
+    /*
+        Determining the x position of the point relative to the top right of the box.
+        +ve means closer to the start of the sector
+
+        x = r - r * sin(theta)
+
+        r is the distance from the origin to place the point, use percentages
+        theta is the size of the angle to the origin in radians
+     */
+    --top: calc(((100 - 100 * var(--sin)) + var(--depth))  / 2 * 1%);
+
+    /*
+        Determining the y position of the point relative to the top right of the box.
+        +ve means closer to the end of the sector
+
+        y = r * (1 - cos(theta))
+
+        r is the distance from the origin to place the point, use percentages
+        theta is the size of the angle to the origin in radians
+     */
+    --left: calc((100 * (1 - var(--cos)) + var(--depth) ) / 2 * 1%);
+
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: var(--top);
+    left: var(--left);
+    background-color: #00ddff;
+    border-radius: 100%;
+    margin: auto;
+}

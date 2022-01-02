@@ -1,0 +1,55 @@
+{
+  "hover": "#3F9BBF",
+  "segments": [
+    {
+      "name": "CE",
+      "degrees": 90,
+      "background": "#1B65A6"
+    }, {
+      "name": "dPCR",
+      "degrees": 90,
+      "background": "#F2ECCE"
+    }, {
+      "name": "PCR",
+      "degrees": 180,
+      "background": "#50ABBF"
+    }
+  ],
+  "zones": [ {
+      "name": "CTC",
+      "value": "100%"
+    }, {
+      "name": "SDC",
+      "value": "75%"
+    }, {
+      "name": "DTI",
+      "value": "50%"
+    }, {
+      "name": "DTC",
+      "value": "25%"
+    }
+  ],
+  "points": [
+    {
+      "segment": "PCR",
+      "zone": "DTC",
+      "name": "GT"
+    }, {
+      "segment": "PCR",
+      "zone": "DTI",
+      "name": "GT"
+    }, {
+      "segment": "PCR",
+      "zone": "DTI",
+      "name": "GT"
+    },{
+      "segment": "dPCR",
+      "zone": "DTC",
+      "name": "Cosmo"
+    }, {
+      "segment": "CE",
+      "zone": "DTC",
+      "name": "Seychelles"
+    }
+  ]
+}
