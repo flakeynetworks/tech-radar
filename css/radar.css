@@ -9,11 +9,13 @@
     width: inherit;
     aspect-ratio: 1/1;
     display: inline-flex;
+    box-shadow: 0 0 20px 0 #00000078;
 }
 
 .radar_segment {
 
     --offset: 0;
+    --bg: #fff;
 
     height: 100%;
     content: '';
@@ -31,7 +33,6 @@
 .radar_zone {
 
     --value: 90;
-    --bg: #fff;
 
     height: var(--value);
     border-radius: 100%;
@@ -49,14 +50,11 @@
     text-align:center;
 }
 
-/*
-    TODO need change this so that it doesn't use opacity.
-    This current method will set the opacity to the background
-    and border and show anything behind it as well
- */
+
 .radar_zone:hover {
-    background: #000;
-    opacity: 15%;
+    transition-duration: 250ms;
+    transition-property: background-color;
+    filter: brightness(0.90);
 }
 
 .radar_zone:first-child {
@@ -72,6 +70,7 @@
     --angle: 45;
     --depth: 50;
     --radius: 50;
+    --size: 10;
 
     --radian: calc(var(--angle) * 0.01745329251);
     --depth_radius: calc(var(--radius) / 100 * var(--depth));
@@ -125,15 +124,27 @@
 
     transform: translate(0%, 0%);
 
-    height: 25px;
-    width: 25px;
+    aspect-ratio: 1/1;
+    width: calc(var(--size) * 1px);
     position: absolute;
     overflow: hidden;
     top: var(--top);
     left: var(--left);
     border-style: solid;
     border-color: #00ddff;
-    border-width: 4px;
+    border-width: 2px;
     border-radius: 100%;
     margin: auto;
+}
+
+.radar_point:hover {
+
+    --size-increase: 5;
+    --size-translate: calc(var(--size-increase) / 2 * -1px);
+
+    transition-duration: 250ms;
+    transition-property: border-color, width, height, transform;
+    border-color: #fff;
+    transform: translate(var(--size-translate), var(--size-translate));
+    width: calc((var(--size) + 5) * 1px);
 }

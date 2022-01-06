@@ -81,7 +81,6 @@ class Zone extends RadarElement {
             let randomMax = 0.80;
             let randomDepth = Math.random() * (randomMax - randomMin) + randomMin;
 
-            console.log("Random: " + randomDepth);
             return zoneWidth * randomDepth + offset;
         })
 
