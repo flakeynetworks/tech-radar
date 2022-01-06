@@ -1,5 +1,4 @@
 .radar {
-    --size: min(100vh, 100vw);
     position: relative;
     background: #c5c5c5;
     overflow: hidden;
@@ -7,11 +6,15 @@
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    width: var(--size);
-    height: var(--size);
+    width: inherit;
+    aspect-ratio: 1/1;
+    display: inline-flex;
 }
 
 .radar_segment {
+
+    --offset: 0;
+
     height: 100%;
     content: '';
     background: var(--bg);
@@ -21,19 +24,23 @@
     transform-origin: 50% 100%;
     width: 100%;
     border-style: solid;
-    border-color: black;
+    border-color: #3a3a3a;
     border-width: 1px;
 }
 
 .radar_zone {
+
+    --value: 90;
+    --bg: #fff;
+
     height: var(--value);
     border-radius: 100%;
     background: var(--bg);
     content: '';
     overflow: hidden;
     position: fixed;
-    border-style: dashed;
-    border-color: black;
+    border-style: solid;
+    border-color: #3a3a3a;
     border-width: 1px;
     top: 100%;
     left: 50%;
@@ -42,6 +49,11 @@
     text-align:center;
 }
 
+/*
+    TODO need change this so that it doesn't use opacity.
+    This current method will set the opacity to the background
+    and border and show anything behind it as well
+ */
 .radar_zone:hover {
     background: #000;
     opacity: 15%;
@@ -58,9 +70,11 @@
 .radar_point {
 
     --angle: 45;
-    --depth: 25;
+    --depth: 50;
+    --radius: 50;
 
     --radian: calc(var(--angle) * 0.01745329251);
+    --depth_radius: calc(var(--radius) / 100 * var(--depth));
 
     /*
         Following is to calculate cos of the angle above.
@@ -93,7 +107,9 @@
         r is the distance from the origin to place the point, use percentages
         theta is the size of the angle to the origin in radians
      */
-    --top: calc(((100 - 100 * var(--sin)) + var(--depth))  / 2 * 1%);
+
+    --x-coordinate: calc((var(--depth_radius) * var(--sin)));
+    --top: calc((var(--radius) - var(--x-coordinate)) * 1%);
 
     /*
         Determining the y position of the point relative to the top right of the box.
@@ -104,14 +120,20 @@
         r is the distance from the origin to place the point, use percentages
         theta is the size of the angle to the origin in radians
      */
-    --left: calc((100 * (1 - var(--cos)) + var(--depth) ) / 2 * 1%);
+    --y-coordinate: calc((var(--depth_radius) * (1 - var(--cos))));
+    --left: calc((var(--radius) - (var(--depth_radius)) + var(--y-coordinate)) * 1%);
 
-    height: 10px;
-    width: 10px;
+    transform: translate(0%, 0%);
+
+    height: 25px;
+    width: 25px;
     position: absolute;
+    overflow: hidden;
     top: var(--top);
     left: var(--left);
-    background-color: #00ddff;
+    border-style: solid;
+    border-color: #00ddff;
+    border-width: 4px;
     border-radius: 100%;
     margin: auto;
 }

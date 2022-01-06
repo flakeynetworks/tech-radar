@@ -18,46 +18,41 @@
   "zones": [ {
       "name": "CTC",
       "value": "100%"
-    }, {
-      "name": "SDC",
-      "value": "75%"
-    }, {
-      "name": "DTI",
-      "value": "50%"
-    }, {
-      "name": "DTC",
-      "value": "25%"
     }
   ],
   "points": [
     {
       "segment": "PCR",
-      "zone": "DTC",
+      "zone": "CTC",
       "name": "GT"
-    }, {
+    },{
       "segment": "PCR",
-      "zone": "DTI",
+      "zone": "CTC",
       "name": "GT"
-    }, {
+    },{
       "segment": "PCR",
-      "zone": "DTI",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
       "name": "GT"
     },{
       "segment": "dPCR",
-      "zone": "DTC",
+      "zone": "CTC",
       "name": "Cosmo"
     },{
       "segment": "dPCR",
-      "zone": "SDC",
+      "zone": "CTC",
       "name": "Cosmo"
     },{
       "segment": "CE",
       "zone": "CTC",
       "name": "Cosmo"
-    }, {
-      "segment": "CE",
-      "zone": "DTC",
-      "name": "Seychelles"
     }
   ]
 }

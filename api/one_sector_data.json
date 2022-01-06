@@ -1,0 +1,38 @@
+{
+  "hover": "#3F9BBF",
+  "segments": [
+    {
+      "name": "PCR",
+      "degrees": 360,
+      "background": "#1B65A6"
+    }
+  ],
+  "zones": [ {
+      "name": "CTC",
+      "value": "100%"
+    }
+  ],
+  "points": [
+    {
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    },{
+      "segment": "PCR",
+      "zone": "CTC",
+      "name": "GT"
+    }
+  ]
+}

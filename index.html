@@ -4,23 +4,46 @@
         <script src="javascript/radar.js"></script>
     </head>
     <body>
-        <div id="radar" style="height: 100vh; width: 100vw;"></div>
+        <div id="radars"></div>
         <script>
 
-            // Get the data to load in
-            let radar;
+            radars = [];
 
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
+            function addRadar(container, url) {
 
-                let data = JSON.parse(this.responseText);
-                let container = document.getElementById("radar");
+                console.log("Loading data from " + url);
 
-                radar = Radar.build(data, container);
+                let radar;
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+
+                    let data = JSON.parse(this.responseText);
+                    radar = Radar.build(data, container);
+                    radars.push(radar);
+                }
+
+                xhttp.open("GET", url, true);
+                xhttp.send();
             }
 
-            xhttp.open("GET", "api/data.json", true);
-            xhttp.send();
+            // Get the data to load in
+            const urls = ["api/simple_data.json", "api/data.json", "api/one_sector_data.json"];
+            let radarsContainer = document.getElementById("radars");
+
+            let ratio = 99 / urls.length;
+
+            for(let url in urls) {
+
+                let radarContainer = document.createElement("div");
+                radarContainer.style.setProperty("height", ratio + "vh");
+                radarContainer.style.setProperty("width", ratio + "vw");
+                radarContainer.style.setProperty("display", "inline");
+
+                radarsContainer.appendChild(radarContainer);
+
+                addRadar(radarContainer, urls[url]);
+            }
         </script>
     </body>
 </html>
